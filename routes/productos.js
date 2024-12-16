@@ -40,7 +40,7 @@ router.get('/:producto_id', async (req, res) => {
   try {
     const [productos] = await pool.query(
       'SELECT * FROM productos WHERE producto_id = ?', 
-      [req.params.id]
+      [req.params.producto_id]
     );
     
     if (productos.length === 0) {
@@ -62,7 +62,7 @@ router.put('/:producto_id', async (req, res) => {
     const { nombre, precio, descripcion } = req.body;
     const [result] = await pool.query(
       'UPDATE productos SET nombre_producto = ?, precio = ?, descripcion = ? WHERE id = ?', 
-      [nombre, precio, descripcion, req.params.id]
+      [nombre, precio, descripcion, req.params.producto_id]
     );
     
     if (result.affectedRows === 0) {
@@ -83,7 +83,7 @@ router.delete('/:producto_id', async (req, res) => {
   try {
     const [result] = await pool.query(
       'DELETE FROM productos WHERE producto_id = ?', 
-      [req.params.id]
+      [req.params.producto_id]
     );
     
     if (result.affectedRows === 0) {
